@@ -1,0 +1,64 @@
+/* DataTable CSS */
+
+.alfaDatatableBody {
+  min-height: 400px;
+  height: 600px;
+}
+
+.alfaDatatableBodyBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+  height: 500px;
+}
+
+.alfaDatatableBodyHeading {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.alfaDatatableBodyHeadingBox {
+  height: 100px;
+  top : 0;
+}
+
+.alfaDatatableBodyHeadingDate {
+  margin: 10px;
+  font-weight: bold;
+  text-decoration:underline;
+}
+
+.alfaDatatableDataBox {
+  display: flexk
+  overflow: auto;
+}
+.alfaDatatableDataTable {
+  width=100%;
+  border: solid black;
+  border-bottom-width: medium;
+  border-collapse: separate;
+  border-spacing: 0;
+  white-space: nowrap;
+}
+
+.alfaDatatableDataTable td {
+  border: 1px solid black;
+}
+.alfaDatatableDataTable th {
+  background-color: powderblue;
+  border: 1px solid black;
+  border-bottom-width: medium;
+  border-bottom-color: black;
+}
+
+.alfaDatatableDataTable th > select {
+  background-color: lightblue;
+}
+
+.alfaDatatableDataTableHeading {
+  position: sticky;
+  align-self: flex-start;
+  padding: 0;
+  top : 0;
+}
