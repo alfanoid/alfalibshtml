@@ -24,7 +24,8 @@
 <?php
   print sprintf("<h1><u>%s</u></h1>", $GLOBALS['alfaDatatableBodyHeading']);
   print "<a class=alfaDatatableBodyHeadingDate>";
-  $alfaDate = new DateTime()->setTimeZone(new DateTimeZone("Australia/Brisbane"));
+  $alfaDate = new DateTime();
+  $alfaDate = $alfaDate->setTimeZone(new DateTimeZone("Australia/Brisbane"));
   print $alfaDate->format("Y-m-d H:i:s");
   print "</a>\n";
 ?>
