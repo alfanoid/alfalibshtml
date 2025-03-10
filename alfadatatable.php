@@ -15,7 +15,7 @@
 <?php
   print sprintf("<title>%s</title>\n", $GLOBALS['alfaDatatableBodyHeading']);
 ?>
-
+<a href="emp_roles.json" download>emp_roles.json</a>
 <body class=alfaDatatableBody>
   <div class=alfaDatatableBodyBox>
     <div class=alfaDatatableBodyHeadingBox>
@@ -134,9 +134,19 @@
 <script>
   // Get data to display in JavaScript
 
-  var alfaDatatableData          = JSON.parse(<?php echo json_encode($alfaDatatableJson, JSON_HEX_TAG); ?>);
-  var alfaDatatableColumns       = <?php echo $alfaDatatableColumns; ?>;
-  var alfaDatatableColumnsFilter = <?php echo $alfaDatatableColumnsFilter; ?>;
+  var alfaDatatableData           = JSON.parse(<?php echo json_encode($alfaDatatableJson, JSON_HEX_TAG); ?>);
+  var alfaDatatableColumnOrder    = <?php 
+                                     if ( ! isset($alfaDatatableColumnOrder) ) {
+                                       $alfaDatatableColumnOrder = 0;
+                                     }
+                                    echo $alfaDatatableColumnOrder; ?>;
+  var alfaDatatableColumnOrderDir = <?php 
+                                     if ( ! isset($alfaDatatableColumnOrderDir) ) {
+                                       $alfaDatatableColumnOrderDir = "'desc'";
+                                     }
+                                    echo $alfaDatatableColumnOrderDir; ?>;
+  var alfaDatatableColumns        = <?php echo $alfaDatatableColumns; ?>;
+  var alfaDatatableColumnsFilter  = <?php echo $alfaDatatableColumnsFilter; ?>;
 
   alfaDatatable_Display_Data();
 </script>

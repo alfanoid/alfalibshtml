@@ -11,7 +11,7 @@ function alfaDatatable_Display_Data() {
     // Display Columns
     columns: alfaDatatableColumns,
   
-    order: [[ 0, 'desc']],
+    order: [[ alfaDatatableColumnOrder, alfaDatatableColumnOrderDir]],
   //  order: [[ 1, 'desc'],[2, 'asc']],
   //  pageLength: 25,
     autoWidth: false,
@@ -65,6 +65,20 @@ function alfaDatatable_Display_Data() {
         action: function (e, dt, node, config) {
   //        $('#IDDataTable').DataTable().columns().search('').draw();
           location.reload();
+        }
+      },
+      {
+        text: 'Download Data',
+        action: function (e, dt, node, config) {
+          alfaDatatableData
+          const blob = new Blob([JSON.stringify(alfaDatatableData, null, 2)], { type: 'text/plain' });
+          const fileURL = URL.createObjectURL(blob);
+
+          const downloadLink = document.createElement('a');
+          downloadLink.href = fileURL;
+          downloadLink.download = 'emp_roles.json';
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
         }
       }
     ],
