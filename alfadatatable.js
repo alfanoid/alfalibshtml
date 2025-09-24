@@ -68,7 +68,21 @@ function alfaDatatable_Display_Data() {
         }
       },
       {
-        text: 'Download Data',
+        text: 'Download Data (CSV)',
+        action: function (e, dt, node, config) {
+          alfaDatatableData
+          const blob = new Blob([JSON.stringify(alfaDatatableData, null, 2)], { type: 'text/plain' });
+          const fileURL = URL.createObjectURL(blob);
+
+          const downloadLink = document.createElement('a');
+          downloadLink.href = fileURL;
+          downloadLink.download = 'emp_roles.csv';
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+        }
+      },
+      {
+        text: 'Download Data (Json)',
         action: function (e, dt, node, config) {
           alfaDatatableData
           const blob = new Blob([JSON.stringify(alfaDatatableData, null, 2)], { type: 'text/plain' });

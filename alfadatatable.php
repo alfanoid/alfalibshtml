@@ -15,15 +15,19 @@
 <?php
   print sprintf("<title>%s</title>\n", $GLOBALS['alfaDatatableBodyHeading']);
 ?>
-<a href="emp_roles.json" download>emp_roles.json</a>
 <body class=alfaDatatableBody>
   <div class=alfaDatatableBodyBox>
     <div class=alfaDatatableBodyHeadingBox>
       <div class=alfaDatatableBodyHeading>
 
 <?php
+  $DebugFunc = 5;
+
+  AlfaDebug(__FILE__, $DebugFunc);
+
   print sprintf("<h1><u>%s</u></h1>", $GLOBALS['alfaDatatableBodyHeading']);
   print "<a class=alfaDatatableBodyHeadingDate>";
+
   $alfaDate = new DateTime();
   $alfaDate = $alfaDate->setTimeZone(new DateTimeZone("Australia/Brisbane"));
   print $alfaDate->format("Y-m-d H:i:s");
