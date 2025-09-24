@@ -71,7 +71,10 @@ function alfaDatatable_Display_Data() {
         text: 'Download Data (CSV)',
         action: function (e, dt, node, config) {
           alfaDatatableData
-          const blob = new Blob([JSON.stringify(alfaDatatableData, null, 2)], { type: 'text/plain' });
+    const array = Array.isArray(alfaDatatableData) ? alfaDatatableData : [alfaDatatableData];
+    const headers = Object.keys(array[0]).join(',');
+    const rows = array.map(obj => Object.values(obj).join(','));
+          const blob = new Blob([[headers, ...rows].join('\n')], { type: 'text/plain' });
           const fileURL = URL.createObjectURL(blob);
 
           const downloadLink = document.createElement('a');
