@@ -1,3 +1,5 @@
+
+
 function alfaDatatableSortNumber(a, b) {
   return a - b;
 }
@@ -63,7 +65,6 @@ function alfaDatatable_Display_Data() {
       {
         text: 'Reset/Reload',
         action: function (e, dt, node, config) {
-  //        $('#IDDataTable').DataTable().columns().search('').draw();
           location.reload();
         }
       },
@@ -71,10 +72,17 @@ function alfaDatatable_Display_Data() {
         text: 'Download Data (CSV)',
         action: function (e, dt, node, config) {
           alfaDatatableData
-    const array = Array.isArray(alfaDatatableData) ? alfaDatatableData : [alfaDatatableData];
-    const headers = Object.keys(array[0]).join(',');
-    const rows = array.map(obj => Object.values(obj).join(','));
-          const blob = new Blob([[headers, ...rows].join('\n')], { type: 'text/plain' });
+          const array = Array.isArray(alfaDatatableData) ? alfaDatatableData : [alfaDatatableData];
+
+          const headers = Object.keys(array[0]).join(',');
+          const rows = array.map(obj => Object.values(obj).join(','));
+
+          const csvFile = new json2csv.Parser(headers);
+          console.log(`csvFile: ${csvFile}`);
+          const csv = csvFile.parse(alfaDatatableData);
+
+          console.log(`csv: ${csv}`);
+          const blob = new Blob([csv], { type: 'octet/stream' });
           const fileURL = URL.createObjectURL(blob);
 
           const downloadLink = document.createElement('a');
