@@ -6,6 +6,7 @@ function alfaDatatableSortNumber(a, b) {
               
 function alfaDatatable_Display_Data() {
 
+
   myTable = new DataTable('#alfaDatatableDataTableID',{
   
     data: alfaDatatableData,
@@ -13,8 +14,9 @@ function alfaDatatable_Display_Data() {
     // Display Columns
     columns: alfaDatatableColumns,
   
-    order: [[ alfaDatatableColumnOrder, alfaDatatableColumnOrderDir]],
-  //  order: [[ 1, 'desc'],[2, 'asc']],
+    order:  alfaDatatableSort,
+//    order:  [{ "name": "DATE_START", "dir": "asc"},
+//    { "name": "WORKER_TYPE", "dir": "asc"}],
   //  pageLength: 25,
     autoWidth: false,
   //  fixedColumns: true,
@@ -22,7 +24,7 @@ function alfaDatatable_Display_Data() {
     scrollCollapse: true,
   //    scrollX: true,
   //    scrollY: 300,
-  //    fixedHeader: true,
+//      fixedHeader: true,
   
     layout: {
       topStart: [

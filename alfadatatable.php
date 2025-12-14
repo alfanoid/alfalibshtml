@@ -37,10 +37,14 @@
       </div> <!-- alfaDatatableBodyHeading -->
     </div> <!-- alfaDatatableBodyHeadingBox -->
     <div class="alfaDatatableDataBox">
+<?php
+  if (isset($alfaDatatableSearchCustom)) {
+    print $alfaDatatableSearchCustom;
+  }
+?>
       <table id="alfaDatatableDataTableID" class="alfaDatatableDataTable">
         <thead class=alfaDatatableDataTableHeading>
           <tr>
-
 <?php
 
 //==============================================
@@ -78,7 +82,7 @@
                 $alfaDatatableConvData = $alfaDatatableCol;
               }
 
-              $alfaDatatableColumns .= sprintf('%s{"data" : "%s",
+              $alfaDatatableColumns .= sprintf('%s{"data" : "%s", "name" : "%s",
                 "render": 
                   function (data, type, row, meta) {
                     if ( data ) {
@@ -89,12 +93,12 @@
                       return "";
                     }
                   },
-                "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableCol, $alfaDatatableColConvert->{"ToFormat"} );
+                "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableCol, $alfaDatatableCol, $alfaDatatableColConvert->{"ToFormat"} );
               break;
 
 
             default:
-              $alfaDatatableColumns .= sprintf('%s{"data" : "%s", "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableCol);
+              $alfaDatatableColumns .= sprintf('%s{"data" : "%s", "name" : "%s", "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableCol, $alfaDatatableCol);
               break;
 
           } # End Switch ColConvert
@@ -103,7 +107,7 @@
 
 
         case "html":
-          $alfaDatatableColumns .= sprintf('%s{"data" : "%s",
+          $alfaDatatableColumns .= sprintf('%s{"data" : "%s", "name" : "%s",
             "wraptext": true,
             "render":
               function (data, type, row) {
@@ -113,18 +117,18 @@
                   return "";
                 }
             },
-            "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableCol, $alfaDatatableColumnFormat[$alfaDatatableCol] );
+            "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableCol, $alfaDatatableCol, $alfaDatatableColumnFormat[$alfaDatatableCol] );
           break;
 
 
         default:
-          $alfaDatatableColumns = sprintf('%s%s{"data" : "%s", "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableColumns, $alfaDatatableCol );
+          $alfaDatatableColumns = sprintf('%s%s{"data" : "%s", "name" : "%s", "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableColumns, $alfaDatatableCol, $alfaDatatableCol );
           break;
 
       } # End Switch ColumnMod
 
     } else {
-      $alfaDatatableColumns .= sprintf('%s{"data" : "%s", "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableCol );
+      $alfaDatatableColumns .= sprintf('%s{"data" : "%s", "name" : "%s", "defaultContent": ""}', $alfaDatatableDelim, $alfaDatatableCol, $alfaDatatableCol );
     }
 
     $alfaDatatableDelim = ",";
@@ -136,9 +140,17 @@
 ?>
 
 <script>
+
   // Get data to display in JavaScript
 
   var alfaDatatableData           = JSON.parse(<?php echo json_encode($alfaDatatableJson, JSON_HEX_TAG); ?>);
+
+  var alfaDatatableSort    = <?php 
+                                    if ( ! isset($alfaDatatableSort) ) {
+                                       $alfaDatatableSort = '""';
+                                     }
+                                    echo '[' . $alfaDatatableSort . ']'; ?>;
+
   var alfaDatatableColumnOrder    = <?php 
                                      if ( ! isset($alfaDatatableColumnOrder) ) {
                                        $alfaDatatableColumnOrder = 0;
@@ -149,6 +161,13 @@
                                        $alfaDatatableColumnOrderDir = "'desc'";
                                      }
                                     echo $alfaDatatableColumnOrderDir; ?>;
+
+  //var alfaDatatableSort           = `\{ name: ${alfaDatatableColumnOrder}, dir: ${alfaDatatableColumnOrderDir}\}`;
+
+  if ( alfaDatatableSort == "" ) {
+    alfaDatatableSort           = [ alfaDatatableColumnOrder, alfaDatatableColumnOrderDir];
+  }
+
   var alfaDatatableColumns        = <?php echo $alfaDatatableColumns; ?>;
   var alfaDatatableColumnsFilter  = <?php echo $alfaDatatableColumnsFilter; ?>;
 

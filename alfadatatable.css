@@ -19,7 +19,6 @@
 }
 
 .alfaDatatableBodyHeadingBox {
-  height: 100px;
   top : 0;
 }
 
@@ -30,7 +29,7 @@
 }
 
 .alfaDatatableDataBox {
-  display: flexk
+  display: flex
   overflow: auto;
 }
 .alfaDatatableDataTable {
